@@ -32,3 +32,4 @@ def process_urlcmd(url, external_card_dialog, external_note_dialog):
                 browser.form.tableView.selectRow(0)
             return True
     return False 
+

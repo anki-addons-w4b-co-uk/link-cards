@@ -25,7 +25,7 @@ def text_for_card(cid):
     else:
         txt = c.q()
     txt = re.sub(r"\[\[type:[^]]+\]\]", "", txt)
-    #txt = mungeQA(mw.col, txt)  # 2.1.20:  mungeQA() deprecated; use mw.prepare_card_text_for_display()
+    # txt = mungeQA(mw.col, txt)  # 2.1.20:  mungeQA() deprecated; use mw.prepare_card_text_for_display()
     txt = mw.prepare_card_text_for_display(txt)
     side = "answer" if gc("linked_cards_show_answer", True) else "question"
     txt = runFilter("prepareQA", txt, c,
@@ -74,22 +74,23 @@ def extract_linked_ids_from_field_content(iscid, notelist):
 
 def createReferencesInMedia():
     notes_with_cid_refs = mw.col.db.list(sqlstring % "c")
-    linkedcids = extract_linked_ids_from_field_content(True, notes_with_cid_refs)
+    linkedcids = extract_linked_ids_from_field_content(
+        True, notes_with_cid_refs)
     for cid in linkedcids:
         txt = text_for_card(cid)
         filename = "_card" + str(cid) + ".html"
         write_to_file(txt, filename)
     notes_with_nid_refs = mw.col.db.list(sqlstring % "n")
-    linked_nids = extract_linked_ids_from_field_content(False, notes_with_nid_refs)
+    linked_nids = extract_linked_ids_from_field_content(
+        False, notes_with_nid_refs)
     for nid in linked_nids:
         txt = text_for_note(nid)
         if txt:
             filename = "_note" + str(nid) + ".html"
-            write_to_file(txt, filename) 
+            write_to_file(txt, filename)
     tooltip("Exporting finished.")
 
 
-
-rha = QAction("Reference Cards to media folder", mw)
+""" rha = QAction("Reference Cards to media folder", mw)
 rha.triggered.connect(createReferencesInMedia)
-mw.form.menuTools.addAction(rha)
+mw.form.menuTools.addAction(rha) """
