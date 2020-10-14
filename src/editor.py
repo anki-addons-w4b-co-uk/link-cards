@@ -67,8 +67,6 @@ def add_to_context(view, menu):
     showin = tuple(cs)
     if not isinstance(parent, showin):
         return
-    a = menu.addAction("Copy nid")
-    a.triggered.connect(lambda _, nid=view.editor.note.id: nidcopy(nid))
     if not isinstance(parent, Browser):
         return
     a = menu.addAction("Copy cid")
