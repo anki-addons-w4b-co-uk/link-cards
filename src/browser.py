@@ -35,18 +35,23 @@ def setup_menu_shortcut(self):
         self.menuBar().insertMenu(self.mw.form.menuTools.menuAction(), self.menuLinking)
         m = self.menuLinking
 
-
-    global action_copy_cid
     action_copy_cid = QAction(browser)
     action_copy_cid.setText("Copy Card ID")
-    qconnect(action_copy_cid.triggered, lambda _, b=browser:browser_shortcut_helper_cid(b))
+    qconnect(action_copy_cid.triggered, lambda _, b=browser: browser_shortcut_helper_cid(b))
     ccombo = gc("shortcut: browser: copy cid")
     if ccombo:
         action_copy_cid.setShortcut(QKeySequence(ccombo))
     m.addAction(action_copy_cid)
+
+
 gui_hooks.browser_menus_did_init.append(setup_menu_shortcut)
 
 
 def add_to_table_context_menu(browser, menu):
+    action_copy_cid = QAction(browser)
+    action_copy_cid.setText("Copy Card ID")
+    qconnect(action_copy_cid.triggered, lambda _, b=browser: browser_shortcut_helper_cid(b))
     menu.addAction(action_copy_cid)
+
+
 gui_hooks.browser_will_show_context_menu.append(add_to_table_context_menu)
