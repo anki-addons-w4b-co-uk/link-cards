@@ -9,5 +9,6 @@ def gc(arg, fail=False):
         return fail
 
 
+dict_card = 'dctCard:'  # link to card from dictionary popup
 pycmd_card = gc("prefix_cid")  # "card_in_extra_window"
 pycmd_nid = gc("prefix_nid")  # "note_in_extra_window"

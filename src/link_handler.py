@@ -2,7 +2,7 @@ import aqt
 from aqt import mw
 from aqt.utils import tooltip
 
-from .config import gc, pycmd_card, pycmd_nid
+from .config import dict_card, gc, pycmd_card, pycmd_nid
 
 
 def process_urlcmd(url, external_card_dialog, external_note_dialog):
@@ -31,5 +31,13 @@ def process_urlcmd(url, external_card_dialog, external_note_dialog):
                 browser.onSearchActivated()
                 browser.form.tableView.selectRow(0)
             return True
-    return False 
+    elif url.startswith(dict_card):
+        cid = url.lstrip(dict_card)
+        try:
+            card = mw.col.getCard(int(cid))
+            external_card_dialog(card)
+        except:
+            tooltip('card with cid "%s" does not exist. Aborting ...' % str(cid))
+        return True
+    return False
 
